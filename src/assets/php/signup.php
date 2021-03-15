@@ -14,21 +14,24 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //如果是 POST 請求
 
         $Table = "Member"; #資料表名稱
         $sqlTable = "SELECT username, password FROM $Table WHERE username = '". $username ."' AND password = '". $password ."';"; #查詢資料表
-        $sqlInner = "INSERT INTO NainsCreate (name, text) VALUES ('". $username ."', '". $password ."')"; # 新增Table裡的資料
+        $sqlInner = "INSERT INTO NainsCreate (username, password) VALUES ('". $username ."', '". $password ."')"; # 新增Table裡的資料
 
         if($connection -> connect_error){
             $data = array( 'failed' => $connection -> connect_error );
         }else{
-            if($result = $connection->query($sqlTable)){
-                while($row = $result->fetch_row()){
-                    array_push($data, array('username' => $row[0], 'password' => $row[1]));
+            if($connection->query($sqlInner) === TRUE){
+                if($result = $connection->query($sqlTable)){
+                    while($row = $result->fetch_row()){
+                        array_push($data, array('username' => $row[0], 'password' => $row[1]));
+                    }
+                    $result->close();
+                }else{
+                    $data = array( 'selectFailed' => $connection->error );
                 }
-                $result->close();
+                if(count($data) == 0){ $data = array('ret' => false); }
+                else{ $data = array('ret' => true); }
             }else{
-                $data = array( 'selectFailed' => $connection->error );
-            }
-            if(count($data) == 0){
-                $data = array('Error' => '請先註冊');
+                $data = array( 'innerFailed' => $connection->error );
             }
         }
     } else {
