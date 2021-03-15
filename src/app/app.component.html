@@ -1,0 +1,33 @@
+<section [class.active]="changeSign">
+  <div [class.active]="changeSign" class="container">
+
+    <div class="user signinBx">
+      <div class="imgBx"><img src="assets/image/lock.jpg" alt=""></div>
+      <div class="formBx">
+        <form action="">
+          <h2>Sign In</h2>
+          <input type="text" [(ngModel)]="username" placeholder="Username" name="username">
+          <input type="password" [(ngModel)]="password" placeholder="Password" name="password">
+          <input type="submit" value="Login" (click)='Login()'>
+          <p class="signup">don`t have an account? <a href="#" (click)='toggleForm()'>Sign up.</a></p>
+        </form>
+      </div>
+    </div>
+
+    <div class="user signupBx">
+      <div class="formBx">
+        <form action="">
+          <h2>Create an account</h2>
+          <input type="text" placeholder="Username">
+          <input type="password" placeholder="Email Address">
+          <input type="password" placeholder="Create Password">
+          <input type="password" placeholder="Confirm Password">
+          <input type="submit" value="Sign Up">
+          <p class="signup">Already have an account? <a href="#" (click)='toggleForm()'>Sign in.</a></p>
+        </form>
+      </div>
+      <div class="imgBx"><img src="assets/image/unlock.jpg" alt=""></div>
+    </div>
+
+  </div>
+</section>
