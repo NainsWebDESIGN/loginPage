@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   signname: string = "";
   signpass: string = "";
   signpass_2: string = "";
+  email: string = "";
   constructor(private api: ApiService) { }
   Login(_Need: number) {
     let req = {}
@@ -22,15 +23,19 @@ export class AppComponent implements OnInit {
         if (this.username.trim() == "" || this.password.trim() == "") { alert("帳號及密碼不得為空") }
         else {
           req = { username: this.username, password: this.password };
-          this.api.postData(113, req);
+          this.api.postData(113, req).subscribe(el => {
+            console.log(el);
+          });
         }
         break;
       case 127:
         if (this.signpass_2 !== this.signpass) { alert("密碼及再次確認必須相同") }
         else if (this.signname.trim() == "" || this.signpass.trim() == "") { alert("帳號及密碼不得為空") }
         else {
-          req = { username: this.signname, password: this.signpass }
-          this.api.postData(127, req);
+          req = { username: this.signname, password: this.signpass, email: this.email }
+          this.api.postData(127, req).subscribe(el => {
+            console.log(el);
+          });
         }
         break;
     }
@@ -39,11 +44,7 @@ export class AppComponent implements OnInit {
     this.changeSign = !this.changeSign;
   }
   ngOnInit() {
-    this.api.data$.subscribe(el => {
-      alert(el == true ? "你好" : "請先註冊");
-    })
-    this.api.signup$.subscribe(el => {
-      alert(el == true ? "註冊完成" : "註冊失敗");
-    })
+
+
   }
 }
