@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") { //如果是 POST 請求
         if($result = $connection->query($sqlTable)){
             while($row = $result->fetch_row()){
                 if(count($row) !== 0){
-                    $data = array('username' => $row[1], 'ret' => '名稱已使用');
+                    $data = array('username' => '名稱已被使用');
                 }
             }
             $result->close();

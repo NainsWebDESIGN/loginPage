@@ -23,8 +23,8 @@ export class AppComponent implements OnInit {
         if (this.username.trim() == "" || this.password.trim() == "") { alert("帳號及密碼不得為空") }
         else {
           req = { username: this.username, password: this.password };
-          this.api.postData(113, req).subscribe(el => {
-            console.log(el);
+          this.api.postData(113, req).subscribe((el: any) => {
+            alert(el.length == 1 ? 'Hello ' + el[0].username : '登入失敗，請先註冊')
           });
         }
         break;
@@ -33,8 +33,8 @@ export class AppComponent implements OnInit {
         else if (this.signname.trim() == "" || this.signpass.trim() == "") { alert("帳號及密碼不得為空") }
         else {
           req = { username: this.signname, password: this.signpass, email: this.email }
-          this.api.postData(127, req).subscribe(el => {
-            console.log(el);
+          this.api.postData(127, req).subscribe((el: any) => {
+            alert(el.username == '名稱已被使用' ? el.username : '註冊完成!')
           });
         }
         break;
